@@ -1,13 +1,10 @@
 import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SECRET_KEY = "{{ secret_key }}"
+SECRET_KEY = "django-insecure-9i5#f!%1+6s3$usf1*9)6w0#pc$umsda*+lp+=j&u_vs-xlibv"
 
 DEBUG = False
 ALLOWED_HOSTS = []
-ADMINS = (
-    # ('Ivan Lukyanets', 'ivan@il-studio.ru'),
-)
 
 DJANGO_APPS = [
     'django.contrib.admin',
@@ -21,12 +18,18 @@ DJANGO_APPS = [
 ]
 
 THIRD_APPS = [
-    #
+    'adminsortable2',
 ]
 
 CUSTOM_APPS = [
+    'applications.about',
     'applications.core',
     'applications.main',
+    'applications.menu',
+    'applications.reviews',
+    'applications.sliders',
+    'applications.shop',
+    'applications.events',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_APPS + CUSTOM_APPS + ['django_cleanup']
@@ -160,6 +163,9 @@ CKEDITOR_CONFIGS = {
         'div(col-xs-*,col-sm-*,col-md-*,col-lg-*,container,container-fluid,row,ratio*); small',
     },
 }
+
+TELEGRAM_CHAT_ID = '1633939138'
+TELEGRAM_TOKEN = '5183666229:AAHsFFvOHx8BdrlM7yn4aKPWERmRO1XBG3o'
 
 try:
     from .local_settings import *  # pylint: disable=wildcard-import

@@ -32,6 +32,10 @@ urlpatterns = [
         '',
         include(('applications.main.urls', 'main'), namespace='main'),
     ),
+    path(
+        'buy/',
+        include(('applications.shop.urls', 'shop'), namespace='shop'),
+    ),
 ]
 
 urlpatterns += staticfiles_urlpatterns() + \

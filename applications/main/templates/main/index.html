@@ -1,17 +1,311 @@
 {% extends 'base.html' %}
+{% load static %}
+{% load core_tags %}
 
 
-{% block full_title %}Start page{% endblock full_title %}
+{% block title %}Soloma{% endblock title %}
 
+
+{% block head %}
+
+{% endblock head %}
 
 {% block content %}
-	<h1>Hello!</h1>
+	<div id="fh5co-container">
+		<div id="fh5co-home" class="js-fullheight" data-section="home">
+			<div class="flexslider">
+				<div class="fh5co-overlay"></div>
 
-	<p>
-		This is start page of <a href="https://github.com/1vank1n/django-project-template/">this</a> django tempate. You have done all right. Start!
-	</p>
+				<div class="fh5co-text">
+					<div class="container">
+						<div class="row">
+							<h1 class="to-animate">{{ slider_preference.title }}</h1>
+							<h2 class="to-animate">{{ slider_preference.content|safe }}</h2>
+						</div>
+					</div>
+				</div>
 
-	<p>
-		Author: Ivan Lukyanets (ivan@il-studio.ru)
-	</p>
+				<ul class="slides">
+				{% for slider in slider_preference.sliders.all|published %}
+					<li style="background-image: url({{ slider.image.url }});" data-stellar-background-ratio="0.5"></li>
+				{% endfor %}
+				</ul>
+			</div>
+		</div>
+
+		<div class="js-sticky">
+			<div class="fh5co-main-nav">
+				<div class="container-fluid">
+					<div class="fh5co-menu-1">
+						<a href="#" data-nav-section="home">Основная</a>
+						<a href="#" data-nav-section="about">О нас</a>
+						<a href="#" data-nav-section="menu">Меню</a>
+					</div>
+
+					<div class="fh5co-logo">
+						<a>Soloma</a>
+					</div>
+
+					<div class="fh5co-menu-2">
+						<a href="#" data-nav-section="events">События</a>
+						<a href="#" data-nav-section="cart">Корзина</a>
+						<a href="#" data-nav-section="contacts">Контакты</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="fh5co-about" data-section="about">
+			<div class="fh5co-2col fh5co-bg to-animate-2" style="background-image: url({{ about.image.url }});"></div>
+
+			<div class="fh5co-2col fh5co-text">
+				<h2 class="heading to-animate">{{ about.title }}</h2>
+				<p class="to-animate">{{ about.content|safe }}</p>
+			</div>
+		</div>
+
+		<div id="fh5co-sayings">
+			<div class="container">
+				<div class="row to-animate">
+					<div class="flexslider">
+						<ul class="slides">
+							{% for review in review_list %}
+								<li>
+									<blockquote>
+										<p>&ldquo;{{ review.content }}&rdquo;</p>
+										<p class="quote-author">&mdash; {{ review.title }}</p>
+									</blockquote>
+								</li>
+							{% endfor %}
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="fh5co-menus" data-section="menu">
+			<div class="container">
+				<div class="row text-center fh5co-heading row-padded">
+					<div class="col-md-8 col-md-offset-2">
+						<h2 class="heading to-animate">{{ menu_block.title }}</h2>
+
+						<p class="sub-heading to-animate">{{ menu_block.content }}</p>
+					</div>
+				</div>
+
+				<div class="row row-padded">
+					{% for category in category_list %}
+						<div class="col-md-6">
+							<div class="fh5co-food-menu to-animate-2">
+								<h2>{{ category.title }}</h2>
+
+								<ul>
+									{% for product in category.products.all|published %}
+										<li>
+											<div class="fh5co-food-desc">
+												<figure>
+													<img src="{{ product.image.url }}" class="img-responsive" alt="{{ product.title }}">
+												</figure>
+
+												<div>
+													<h3>{{ product.title }}</h3>
+													<p>{{ product.content }}</p>
+													<p class="text-center to-animate"><a href="{% url 'shop:quick_buy' ct_model=product.uuid %}" class="btn btn-primary btn-outline">Добавить</a></p>
+												</div>
+											</div>
+
+											<div class="fh5co-food-pricing">
+												{{ product.price }}₽
+											</div>
+										</li>
+									{% endfor %}
+								</ul>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+
+		<div id="fh5co-events" data-section="events" data-stellar-background-ratio="0.5">
+			<div class="fh5co-overlay"></div>
+
+			<div class="container">
+				<div class="row text-center fh5co-heading row-padded">
+					<div class="col-md-8 col-md-offset-2 to-animate">
+						<h2 class="heading">{{ event_block.title }}</h2>
+
+						<p class="sub-heading">{{ event_block.content }}</p>
+					</div>
+				</div>
+
+				<div class="row">
+					{% for event in event_list %}
+						<div class="col-md-4">
+							<div class="fh5co-event to-animate-2">
+								<h3>{{ event.title }}</h3>
+								<span class="fh5co-event-meta">{{ event.date }}</span>
+								<p>{{ event.content }}</p>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+
+		<div id="fh5co-cart" data-section="cart">
+			<div class="container">
+				<div class="row text-center fh5co-heading row-padded">
+					<div class="col-md-8 col-md-offset-2">
+						<h2>Ваша Корзина</h2>
+					</div>
+				</div>
+
+				<div class="row row-padded">
+					{% if cart.items.count %}
+						<div class="row row-padded">
+							{% for product in cart.items.all  %}
+								<div class="col-md-6">
+									<div class="fh5co-food-menu">
+										<div class="fh5co-food-desc">
+											<figure>
+												<img src="{{ product.product.image.url }}" class="img-responsive" alt="{{ product.product.title }}">
+											</figure>
+
+											<div>
+												<h3 class="text-center">{{ product.product.title }}</h3>
+												<p class="text-center"> Сумма: {{ product.total }} ({{ product.quantity }}*{{ product.product.price }}₽)</p>
+												<p class="text-center">
+													<a href="{% url 'shop:product_delete' ct_model=product.product.uuid %}" class="text-center btn btn-primary btn-outline">Удалить позицию</a>
+												</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							{% endfor %}
+						</div>
+
+						<form action="{% url 'shop:order_create' %}" method="post">
+							{% csrf_token %}
+
+							<h3 class="text-center">Оформить заказ</h3>
+							<h4 class="text-center"><small >Обращаем Ваше внимание,что оплата осуществляется по факту получения</small></h4>
+							<div class="form-group">
+								<label for="id_name" class="sr-only">Имя</label>
+								<input id="id_name" class="form-control" name="name"  placeholder="Имя" reqiured>
+							</div>
+
+							<div class="form-group">
+								<label for="id_phone" class="sr-only">Телефон</label>
+								<input id="id_phone" class="form-control" name="phone" data-mask="+0 (000) 000-00-00" placeholder="+7 (999) 999-99-99" reqiured>
+							</div>
+
+							<div class="form-group">
+								<label for="id_address" class="sr-only">Адрес</label>
+								<input id="id_address" class="form-control" name="address" placeholder="Адрес" type="text" reqiured>
+							</div>
+
+							<div class="form-group">
+								<label for="id_message" class="sr-only">Комментарий</label>
+								<textarea id="id_message" cols="30" rows="5" class="form-control" name="message"  placeholder="Комментарий"></textarea>
+							</div>
+
+							<div class="text-center form-group">
+								<p>Сумма заказа: {{ cart.amount }}₽</p>
+								<input class="btn btn-primary" value="Оформить" type="submit">
+							</div>
+						</form>
+					{% else %}
+						{% if messages %}
+							<ul class="messages">
+								{% for message in messages %}
+									{{ message }}
+								{% endfor %}
+							</ul>
+						{% else %}
+							<div>
+								Ваша Корзина пуста :(
+							</div>
+						{% endif %}
+					{% endif %}
+				</div>
+			</div>
+		</div>
+
+
+		<div id="fh5co-contact" data-section="reservation">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6 to-animate-2">
+
+				</div>
+			</div>
+		</div>
+
+		<div id="fh5co-contact"  data-section="contacts">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6">
+						<h3>Контакты</h3>
+						<ul class="fh5co-contact-info">
+							<li class="fh5co-contact-address ">
+								<i class="icon-home"></i>
+								{{ preference.address|safe }}
+							</li>
+							<li><i class="icon-phone"></i>{{ preference.phone|safe }}</li>
+							<li><i class="icon-envelope"></i><a href="mailto:{{ preference.email }}">{{ preference.email|safe }}</li>
+						</ul>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group" style="filter: invert(1);">
+							<iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A788bb3750b8e088f41ea0699d63bc32abeb8c7e30d8c9c627c53e7f05ac10f26&amp;source=constructor" width="550" height="550" frameborder="0"></iframe>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="fh5co-footer">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 text-center">
+					<ul class="fh5co-social">
+						{% if preference.social_facebook %}
+							<li class="to-animate-2">
+								<a href="{{ preference.social_facebook }}"><i class="icon-facebook"></i></a>
+							</li>
+						{% endif %}
+
+						{% if preference.social_instagram %}
+							<li class="to-animate-2">
+								<a href="{{ preference.social_instagram }}"><i class="icon-instagram"></i>
+								</a>
+							</li>
+						{% endif %}
+
+						{% if preference.social_vkontakte %}
+							<li class="to-animate-2">
+								<a href="{{ preference.social_vkontakte }}"><i class="icon-vk"></i>
+								</a>
+							</li>
+						{% endif %}
+
+						{% if preference.social_telegram %}
+							<li class="to-animate-2">
+								<a href="{{ preference.social_telegram }}"><i class="icon-user-secret"></i>
+								</a>
+							</li>
+						{% endif %}
+					</ul>
+				</div>
+			</div>
+
+			<div class="row row-padded">
+				<div class="col-md-12 text-center">
+					<p class="to-animate">&copy; {% now 'Y' %} SOLOMA</p>
+				</div>
+			</div>
+		</div>
+	</div>
 {% endblock content %}

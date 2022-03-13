@@ -3,62 +3,54 @@
 
 <!DOCTYPE html>
 <html lang="ru">
-<head>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="imagetoolbar" content="no">
+		<meta name="msthemecompatible" content="no">
+		<meta name="cleartype" content="on">
+		<meta name="HandheldFriendly" content="True">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="imagetoolbar" content="no">
-	<meta name="msthemecompatible" content="no">
-	<meta name="cleartype" content="on">
-	<meta name="HandheldFriendly" content="True">
-	<meta name="apple-mobile-web-app-capable" content="yes">
-	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<title>{% block full_title %}{% block title %}{% endblock %}{% endblock full_title %}</title>
 
-	{% comment %}
-	<link sizes="152x152" href="{% static 'images/apple-touch-icon-152x152.png' %}" rel="apple-touch-icon">
-	<link sizes="144x144" href="{% static 'images/apple-touch-icon-144x144.png' %}" rel="apple-touch-icon">
-	<link sizes="120x120" href="{% static 'images/apple-touch-icon-120x120.png' %}" rel="apple-touch-icon">
-	<link sizes="114x114" href="{% static 'images/apple-touch-icon-114x114.png' %}" rel="apple-touch-icon">
-	<link sizes="76x76" href="{% static 'images/apple-touch-icon-76x76.png' %}" rel="apple-touch-icon">
-	<link sizes="72x72" href="{% static 'images/apple-touch-icon-72x72.png' %}" rel="apple-touch-icon">
-	<link sizes="60x60" href="{% static 'images/apple-touch-icon-60x60.png' %}" rel="apple-touch-icon">
-	<link sizes="57x57" href="{% static 'images/apple-touch-icon-57x57.png' %}" rel="apple-touch-icon">
-	<link sizes="196x196" href="{% static 'images/favicon-196x196.png' %}" rel="icon" type="image/png">
-	<link sizes="128x128" href="{% static 'images/favicon-128.png' %}" rel="icon" type="image/png">
-	<link sizes="96x96" href="{% static 'images/favicon-96x96.png' %}" rel="icon" type="image/png">
-	<link sizes="32x32" href="{% static 'images/favicon-32x32.png' %}" rel="icon" type="image/png">
-	<link sizes="16x16" href="{% static 'images/favicon-16x16.png' %}" rel="icon" type="image/png">
-	<meta name="application-name" content="Example">
-	<meta name="msapplication-tooltip" content="Example">
-	<meta name="msapplication-TileColor" content="#ffffff">
-	<meta name="msapplication-starturl" content="http://example.ru">
-	<meta name="msapplication-tap-highlight" content="no">
-	<meta name="msapplication-square310x310logo" content="{% static 'images/mstile-310x310.png' %}">
-	<meta name="msapplication-wide310x150logo" content="{% static 'images/mstile-310x150.png' %}">
-	<meta name="msapplication-square150x150logo" content="{% static 'images/mstile-150x150.png' %}">
-	<meta name="msapplication-TileImage" content="{% static 'images/mstile-144x144.png' %}">
-	<meta name="msapplication-square70x70logo" content="{% static 'images/mstile-70x70.png' %}">
-	{% endcomment %}
+		<link href='https://fonts.googleapis.com/css?family=Playfair+Display:400,700,400italic,700italic|Merriweather:300,400italic,300italic,400,700italic' rel='stylesheet' type='text/css'>
+		<link rel="canonical" href="{{ request.path }}">
+		<link rel="shortcut icon" href="favicon.ico">
+		<link rel="stylesheet" href="{% static 'styles/animate.css' %}">
+		<link rel="stylesheet" href="{% static 'styles/icomoon.css' %}">
+		<link rel="stylesheet" href="{% static 'styles/simple-line-icons.css' %}">
+		<link rel="stylesheet" href="{% static 'styles/bootstrap-datetimepicker.min.css' %}">
+		<link rel="stylesheet" href="{% static 'styles/flexslider.css' %}">
+		<link rel="stylesheet" href="{% static 'styles/bootstrap.css' %}">
+		<link rel="stylesheet" href="{% static 'styles/style.css' %}">
+		<script src="{% static 'scripts/modernizr-2.6.2.min.js' %}"></script>
 
-	<title>{% block full_title %}{% block title %}{% endblock %}{% endblock full_title %}</title>
+		{% block head %}{% endblock head %}
 
-	<link rel="canonical" href="{{ request.path }}">
-	<link rel="preload" href="{% static 'styles/base.css' %}" as="style">
-	<link rel="stylesheet" href="{% static 'styles/bootstrap/base.css' %}">
-	<link rel="stylesheet" href="{% static 'styles/base.css' %}">
-
-	{% block head %}{% endblock head %}
-
-	{{ preference.header_html|safe }}
-
-</head>
+		{{ preference.header_html|safe }}
+	</head>
 <body>
 
 	{% block content %}{% endblock content %}
 
-	<script src="{% static 'scripts/base.js' %}"></script>
-
+	<script src="{% static 'scripts/jquery.min.js' %}"></script>
+	<script src="{% static 'scripts/jquery.easing.1.3.js' %}"></script>
+	<script src="{% static 'scripts/bootstrap.min.js' %}"></script>
+	<script src="{% static 'scripts/moment.js' %}"></script>
+	<script src="{% static 'scripts/bootstrap-datetimepicker.min.js' %}"></script>
+	<script src="{% static 'scripts/jquery.waypoints.min.js' %}"></script>
+	<script src="{% static 'scripts/jquery.stellar.min.js' %}"></script>
+	<script src="{% static 'scripts/jquery.flexslider-min.js' %}"></script>
+	<script>
+		$(function () {
+			$('#date').datetimepicker();
+		});
+	</script>
+	<!-- Main JS -->
+	<script src="{% static 'scripts/main.js' %}"></script>
 	{% block footer_js %}{% endblock footer_js %}
 
 	{{ preference.footer_html|safe }}

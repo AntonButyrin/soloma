@@ -4,7 +4,7 @@ from ..core.models import PathAndRename, Single
 
 
 class Preference(Single):
-    """Настройки"""
+    """ Настройки """
 
     site_title = models.CharField(
         verbose_name='Название сайта',
@@ -24,6 +24,20 @@ class Preference(Single):
         blank=True,
     )
 
+    phone = models.TextField(
+        verbose_name='Список телефонов',
+        help_text='Каждый телефон с новой строки',
+    )
+
+    email = models.CharField(
+        verbose_name='Эл.почта',
+        max_length=100,
+    )
+
+    address = models.TextField(
+        verbose_name='Адрес',
+    )  # yapf: disable
+
     header_html = models.TextField(
         verbose_name='HEAD',
         help_text='Вставка html-кода для всех страниц сайта перед закрывающимся тегом HEAD',
@@ -33,6 +47,30 @@ class Preference(Single):
     footer_html = models.TextField(
         verbose_name='FOOTER',
         help_text='Вставка html-кода для всех страниц сайта перед закрывающимся тегом FOOTER',
+        blank=True,
+    )
+
+    social_facebook = models.CharField(
+        verbose_name='Facebook',
+        max_length=300,
+        blank=True,
+    )
+
+    social_vkontakte = models.CharField(
+        verbose_name='Vkontakte',
+        max_length=300,
+        blank=True,
+    )
+
+    social_instagram = models.CharField(
+        verbose_name='Instagram',
+        max_length=300,
+        blank=True,
+    )
+
+    social_telegram = models.CharField(
+        verbose_name='Telegram',
+        max_length=300,
         blank=True,
     )
 

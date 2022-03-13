@@ -10,7 +10,7 @@ register = template.Library()
 
 @register.filter
 def published(value):
-    return value.filter(status=Common.STATUS.published)
+    return value.filter(status=Common.Status.PUBLISHED)
 
 
 @register.filter
