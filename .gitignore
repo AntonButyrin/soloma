@@ -8,9 +8,7 @@ __pycache__/
 logs/
 media/
 node_modules/
-static/
+
 
 .DS_Store
-db.sqlite3
 package-lock.json
-settings/local_settings.py
