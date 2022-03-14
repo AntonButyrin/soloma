@@ -45,10 +45,6 @@
 		$('#fh5co-sayings .flexslider').flexslider({
 			animation: "slide",
 			slideshowSpeed: 5000,
-			directionNav: false,
-			controlNav: true,
-			smoothHeight: true,
-			reverse: true
 	  	});
 	}
 
